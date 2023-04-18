@@ -39,7 +39,7 @@ func (p *Prefabs) Process(int32) {
 		imgui.SetCursorPos(cursor)
 
 		imgui.BeginGroup()
-		w.Image(imgui.TextureID(node.sprite.Texture()), p.iconSize(), p.iconSize()).
+		w.Image(node.sprite.TextureID(), p.iconSize(), p.iconSize()).
 			Uv(
 				imgui.Vec2{
 					X: node.sprite.U1,

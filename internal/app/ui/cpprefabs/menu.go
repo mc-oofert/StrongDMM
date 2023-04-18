@@ -10,7 +10,6 @@ import (
 	"sdmm/internal/dmapi/dmvars"
 	"sdmm/internal/imguiext/icon"
 	w "sdmm/internal/imguiext/widget"
-	"sdmm/internal/platform"
 
 	"github.com/SpaiR/imgui-go"
 	"github.com/rs/zerolog/log"
@@ -48,14 +47,14 @@ func (p *Prefabs) showContextMenu(node *prefabNode) {
 func (*Prefabs) doCopyId(node *prefabNode) func() {
 	return func() {
 		log.Print("do copy prefab id:", node.orig.Id())
-		platform.SetClipboard(strconv.FormatUint(node.orig.Id(), 10))
+		//platform.SetClipboard(strconv.FormatUint(node.orig.Id(), 10))
 	}
 }
 
 func (*Prefabs) doCopyType(node *prefabNode) func() {
 	return func() {
 		log.Print("do copy prefab type:", node.orig.Path())
-		platform.SetClipboard(node.orig.Path())
+		//platform.SetClipboard(node.orig.Path())
 	}
 }
 

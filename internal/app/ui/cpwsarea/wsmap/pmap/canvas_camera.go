@@ -5,7 +5,7 @@ import (
 	"sdmm/internal/imguiext"
 
 	"github.com/SpaiR/imgui-go"
-	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 const scaleFactor float32 = 1.5
@@ -33,7 +33,7 @@ func (p *PaneMap) processCameraZoom() {
 
 	// Support for alternative scroll behaviour.
 	// Pan with a scroll, zoom if a space key pressed.
-	if p.app.Prefs().Controls.AltScrollBehaviour && !imgui.IsKeyDown(int(glfw.KeySpace)) {
+	if p.app.Prefs().Controls.AltScrollBehaviour && !imgui.IsKeyDown(int(ebiten.KeySpace)) {
 		shift := p.calcManualCanvasTranslateShiftV(mouseWheel)
 		if imguiext.IsCtrlDown() {
 			p.translateCanvas(shift, 0)

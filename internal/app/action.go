@@ -22,6 +22,7 @@ import (
 	"sdmm/internal/dmapi/dmmclip"
 
 	"github.com/SpaiR/imgui-go"
+	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/rs/zerolog/log"
 )
 
@@ -150,7 +151,7 @@ func (a *app) UpdateTitle() {
 		title = env.Title
 	}
 
-	a.masterWindow.Handle().SetTitle(title)
+	ebiten.SetWindowTitle(title)
 	log.Print("title updated:", title)
 }
 
@@ -238,7 +239,7 @@ func (a *app) Prefs() prefs.Prefs {
 
 // FocusApplicationWindow explicitly moves an OS focus to the current application window.
 func (a *app) FocusApplicationWindow() {
-	a.masterWindow.Handle().Focus()
+	//a.masterWindow.Handle().Focus()
 }
 
 func (a *app) activeWsMap() (*wsmap.WsMap, bool) {

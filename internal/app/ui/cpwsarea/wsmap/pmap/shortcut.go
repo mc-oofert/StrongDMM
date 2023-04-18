@@ -5,27 +5,27 @@ import (
 	"sdmm/internal/app/ui/shortcut"
 	"sdmm/internal/platform"
 
-	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/rs/zerolog/log"
 )
 
 func (p *PaneMap) addShortcuts() {
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:        "pmap#selectAddTool",
-		FirstKey:    glfw.Key1,
-		FirstKeyAlt: glfw.KeyKP1,
+		FirstKey:    ebiten.Key1,
+		FirstKeyAlt: ebiten.KeyKP1,
 		Action:      selectAddTool,
 	})
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:        "pmap#selectFillTool",
-		FirstKey:    glfw.Key2,
-		FirstKeyAlt: glfw.KeyKP2,
+		FirstKey:    ebiten.Key2,
+		FirstKeyAlt: ebiten.KeyKP2,
 		Action:      selectFillTool,
 	})
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:        "pmap#selectSelectTool",
-		FirstKey:    glfw.Key3,
-		FirstKeyAlt: glfw.KeyKP3,
+		FirstKey:    ebiten.Key3,
+		FirstKeyAlt: ebiten.KeyKP3,
 		Action:      selectSelectTool,
 	})
 
@@ -33,7 +33,7 @@ func (p *PaneMap) addShortcuts() {
 		Name:        "pmap#doDeselectAll",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyD,
+		SecondKey:   ebiten.KeyD,
 		Action:      p.DoDeselect,
 	})
 
@@ -41,32 +41,32 @@ func (p *PaneMap) addShortcuts() {
 		Name:         "pmap#doToggleArea",
 		FirstKey:     platform.KeyModLeft(),
 		FirstKeyAlt:  platform.KeyModRight(),
-		SecondKey:    glfw.Key1,
-		SecondKeyAlt: glfw.KeyKP1,
+		SecondKey:    ebiten.Key1,
+		SecondKeyAlt: ebiten.KeyKP1,
 		Action:       p.doToggleArea,
 	})
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:         "pmap#doToggleTurf",
 		FirstKey:     platform.KeyModLeft(),
 		FirstKeyAlt:  platform.KeyModRight(),
-		SecondKey:    glfw.Key2,
-		SecondKeyAlt: glfw.KeyKP2,
+		SecondKey:    ebiten.Key2,
+		SecondKeyAlt: ebiten.KeyKP2,
 		Action:       p.doToggleTurf,
 	})
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:         "pmap#doToggleObject",
 		FirstKey:     platform.KeyModLeft(),
 		FirstKeyAlt:  platform.KeyModRight(),
-		SecondKey:    glfw.Key3,
-		SecondKeyAlt: glfw.KeyKP3,
+		SecondKey:    ebiten.Key3,
+		SecondKeyAlt: ebiten.KeyKP3,
 		Action:       p.doToggleObject,
 	})
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:         "pmap#doToggleMob",
 		FirstKey:     platform.KeyModLeft(),
 		FirstKeyAlt:  platform.KeyModRight(),
-		SecondKey:    glfw.Key4,
-		SecondKeyAlt: glfw.KeyKP4,
+		SecondKey:    ebiten.Key4,
+		SecondKeyAlt: ebiten.KeyKP4,
 		Action:       p.doToggleMob,
 	})
 
@@ -74,7 +74,7 @@ func (p *PaneMap) addShortcuts() {
 		Name:        "pmap#doPreviousLevel",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyDown,
+		SecondKey:   ebiten.KeyDown,
 		Action:      p.doPreviousLevel,
 		IsEnabled:   p.hasPreviousLevel,
 	})
@@ -82,45 +82,45 @@ func (p *PaneMap) addShortcuts() {
 		Name:        "pmap#doNextLevel",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyUp,
+		SecondKey:   ebiten.KeyUp,
 		Action:      p.doNextLevel,
 		IsEnabled:   p.hasNextLevel,
 	})
 
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:     "pmap#doMoveCameraUp",
-		FirstKey: glfw.KeyUp,
+		FirstKey: ebiten.KeyUp,
 		Action:   p.doMoveCameraUp,
 	})
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:     "pmap#doMoveCameraDown",
-		FirstKey: glfw.KeyDown,
+		FirstKey: ebiten.KeyDown,
 		Action:   p.doMoveCameraDown,
 	})
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:     "pmap#doMoveCameraLeft",
-		FirstKey: glfw.KeyLeft,
+		FirstKey: ebiten.KeyLeft,
 		Action:   p.doMoveCameraLeft,
 	})
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:     "pmap#doMoveCameraRight",
-		FirstKey: glfw.KeyRight,
+		FirstKey: ebiten.KeyRight,
 		Action:   p.doMoveCameraRight,
 	})
 
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:     "pmap#doZoomIn",
-		FirstKey: glfw.KeyEqual,
+		FirstKey: ebiten.KeyEqual,
 		Action:   p.doZoomIn,
 	})
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:     "pmap#doZoomIn",
-		FirstKey: glfw.KeyKPEqual,
+		FirstKey: ebiten.KeyKPEqual,
 		Action:   p.doZoomIn,
 	})
 	p.shortcuts.Add(shortcut.Shortcut{
 		Name:     "pmap#doZoomOut",
-		FirstKey: glfw.KeyMinus,
+		FirstKey: ebiten.KeyMinus,
 		Action:   p.doZoomOut,
 	})
 }

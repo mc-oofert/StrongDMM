@@ -2,15 +2,13 @@ package window
 
 import (
 	"image"
-	"runtime"
-
+	"sdmm/internal/platform"
+	"sdmm/internal/platform/renderer"
+	"sdmm/internal/platform/renderer/txcache"
 	"sdmm/internal/rsc"
 
-	"sdmm/internal/platform"
-
 	"github.com/SpaiR/imgui-go"
-	"github.com/go-gl/gl/v3.3-core/gl"
-	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/rs/zerolog/log"
 )
 
@@ -32,38 +30,49 @@ var (
 )
 
 type Window struct {
-	handle *glfw.Window
-
 	application application
+
+	g *G
 
 	mouseChangeCallbackId int
 	mouseChangeCallbacks  map[int]func(uint, uint)
 }
 
-func (w *Window) Handle() *glfw.Window {
-	return w.handle
-}
+var wnd *Window
 
 func New(application application) *Window {
 	log.Print("creating native window")
 
 	w := Window{application: application}
+	wnd = &w
 	w.mouseChangeCallbacks = make(map[int]func(uint, uint))
 
-	log.Print("setting up glfw")
-	w.setupGlfw()
+	mgr := renderer.New()
+
+	fw, fh := ebiten.ScreenSizeInFullscreen()
+	ebiten.SetWindowSize(fw, fh)
+	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
+	ebiten.SetWindowIcon([]image.Image{rsc.EditorIcon().RGBA()})
+
+	w.g = &G{
+		mgr:        mgr,
+		preUpdate:  w.beforeFrame,
+		update:     w.runFrame,
+		postUpdate: w.beforeFrame,
+		retina:     platform.IsOsDarwin(),
+	}
 
 	log.Print("setting up Dear ImGui")
 	w.setupImGui()
 
-	log.Print("initializing platform")
-	platform.InitImGuiGLFW()
-	platform.InitImGuiGL()
-	platform.MouseChangeCallback = w.mouseChangeCallback
-
-	AppLogoTexture = platform.CreateTexture(rsc.EditorIcon().RGBA())
+	txcache.SetTexture(imgui.TextureID(2), ebiten.NewImageFromImage(rsc.EditorIcon().RGBA()))
+	AppLogoTexture = 2
 
 	return &w
+}
+
+func (w *Window) Process() {
+	ebiten.RunGame(w.g)
 }
 
 func (w *Window) mouseChangeCallback(x, y uint) {
@@ -73,11 +82,7 @@ func (w *Window) mouseChangeCallback(x, y uint) {
 }
 
 func (w *Window) Dispose() {
-	platform.DisposeImGuiGL()
-	platform.DisposeImGuiGLFW()
-
 	w.disposeImGui()
-	w.disposeGlfw()
 }
 
 func PointSize() float32 {
@@ -91,61 +96,12 @@ func PointSizePtr() *float32 {
 func SetPointSize(ps float32) {
 	pointSize = ps
 	configureFonts()
-	platform.UpdateFontsTexture()
+	wnd.g.mgr.UpdateFonts()
 }
 
 func SetFps(value int) {
 	log.Print("set fps:", value)
-	ticker = newTicker(value)
-}
-
-func (w *Window) setupGlfw() {
-	runtime.LockOSThread()
-
-	if err := glfw.Init(); err != nil {
-		log.Fatal().Msgf("unable to initialize gfw: %v", err)
-	}
-
-	glfw.WindowHint(glfw.Visible, glfw.False)
-
-	glfw.WindowHint(glfw.ContextVersionMajor, 3)
-	glfw.WindowHint(glfw.ContextVersionMinor, 3)
-	glfw.WindowHint(glfw.OpenGLProfile, glfw.OpenGLCoreProfile)
-	glfw.WindowHint(glfw.OpenGLForwardCompatible, glfw.True)
-	glfw.WindowHint(glfw.Maximized, glfw.True)
-
-	log.Print("glfw initialized")
-	log.Print("using opengl 3.3, core profile")
-
-	window, err := glfw.CreateWindow(1280, 768, "", nil, nil)
-
-	if err != nil {
-		log.Fatal().Msgf("unable to create window: %v", err)
-	}
-
-	log.Print("native window created")
-
-	window.SetIcon([]image.Image{rsc.EditorIcon().RGBA()})
-	window.MakeContextCurrent()
-
-	glfw.SwapInterval(glfw.True)
-
-	if err := gl.Init(); err != nil {
-		log.Fatal().Msgf("unable to initialize opengl: %v", err)
-	}
-
-	window.SetSizeCallback(w.resizeCallback)
-
-	// Ensure that the window is fully initialized before showing.
-	RunLater(func() {
-		window.Maximize()
-		window.Show()
-		window.RequestAttention()
-	})
-
-	log.Print("opengl initialized")
-
-	w.handle = window
+	ebiten.SetTPS(value)
 }
 
 func (w *Window) setupImGui() {
@@ -164,11 +120,28 @@ func (*Window) disposeImGui() {
 	}
 }
 
-func (w *Window) disposeGlfw() {
-	w.handle.Destroy()
-	glfw.Terminate()
+func (w *Window) beforeFrame() {
+	runLaterJobs()
+	runRepeatJobs()
 }
 
-func (w *Window) resizeCallback(_ *glfw.Window, _, _ int) {
-	w.runFrame()
+func (w *Window) runFrame() {
+	w.application.Process()
+}
+
+func (w *Window) afterFrame() {
+	w.application.PostProcess()
+}
+
+func runLaterJobs() {
+	for _, job := range laterJobs {
+		job()
+	}
+	laterJobs = nil
+}
+
+func runRepeatJobs() {
+	for _, job := range repeatJobs {
+		job()
+	}
 }

@@ -1,30 +1,26 @@
 package platform
 
 import (
-	"runtime"
-
-	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
-var isDarwin = runtime.GOOS == "darwin"
-
 func KeyModName() string {
-	if isDarwin {
+	if IsOsDarwin() {
 		return "Cmd"
 	}
 	return "Ctrl"
 }
 
-func KeyModLeft() glfw.Key {
-	if isDarwin {
-		return glfw.KeyLeftSuper
+func KeyModLeft() ebiten.Key {
+	if IsOsDarwin() {
+		return ebiten.KeyMetaLeft
 	}
-	return glfw.KeyLeftControl
+	return ebiten.KeyControlLeft
 }
 
-func KeyModRight() glfw.Key {
-	if isDarwin {
-		return glfw.KeyRightSuper
+func KeyModRight() ebiten.Key {
+	if IsOsDarwin() {
+		return ebiten.KeyMetaRight
 	}
-	return glfw.KeyRightControl
+	return ebiten.KeyControlRight
 }

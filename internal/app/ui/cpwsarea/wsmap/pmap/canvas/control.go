@@ -2,7 +2,7 @@ package canvas
 
 import (
 	"github.com/SpaiR/imgui-go"
-	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 type Control struct {
@@ -96,7 +96,7 @@ func (c *Control) processMouseMove() {
 		return
 	}
 
-	c.moving = imgui.IsMouseDown(imgui.MouseButtonMiddle) || imgui.IsKeyDown(int(glfw.KeySpace))
+	c.moving = imgui.IsMouseDown(imgui.MouseButtonMiddle) || imgui.IsKeyDown(int(ebiten.KeySpace))
 }
 
 func (c *Control) processMouseDrag() {

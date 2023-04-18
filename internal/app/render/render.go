@@ -1,12 +1,9 @@
 package render
 
 import (
-	"sdmm/internal/app/render/brush"
 	"sdmm/internal/app/render/bucket"
 	"sdmm/internal/dmapi/dmmap"
 	"sdmm/internal/util"
-
-	"github.com/go-gl/gl/v3.3-core/gl"
 )
 
 type Render struct {
@@ -19,7 +16,7 @@ type Render struct {
 }
 
 func New() *Render {
-	brush.TryInit()
+	//brush.TryInit()
 	return &Render{
 		Camera: newCamera(),
 		bucket: bucket.New(),
@@ -59,10 +56,10 @@ func (r *Render) Draw(width, height float32) {
 
 // Initialize OpenGL state.
 func (r *Render) prepare() {
-	gl.Enable(gl.BLEND)
-	gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
-	gl.BlendEquation(gl.FUNC_ADD)
-	gl.ActiveTexture(gl.TEXTURE0)
+	//gl.Enable(gl.BLEND)
+	//gl.BlendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA)
+	//gl.BlendEquation(gl.FUNC_ADD)
+	//gl.ActiveTexture(gl.TEXTURE0)
 }
 
 func (r *Render) draw(width, height float32) {
@@ -70,12 +67,12 @@ func (r *Render) draw(width, height float32) {
 	//r.batchChunksVisuals()
 	r.batchOverlayAreasBorders()
 	r.batchOverlayAreas()
-	brush.Draw(width, height, r.Camera.ShiftX, r.Camera.ShiftY, r.Camera.Scale)
+	//brush.Draw(width, height, r.Camera.ShiftX, r.Camera.ShiftY, r.Camera.Scale)
 }
 
 // Clean OpenGL state after rendering.
 func (r *Render) cleanup() {
-	gl.Disable(gl.BLEND)
+	//gl.Disable(gl.BLEND)
 }
 
 func (r *Render) viewportBounds(width, height float32) util.Bounds {

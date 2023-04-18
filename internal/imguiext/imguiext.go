@@ -4,7 +4,7 @@ import (
 	"sdmm/internal/platform"
 
 	"github.com/SpaiR/imgui-go"
-	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 func SetItemHoveredTooltip(text string) {
@@ -30,15 +30,15 @@ func InputIntClamp(
 }
 
 func IsAltDown() bool {
-	return imgui.IsKeyDown(int(glfw.KeyLeftAlt)) || imgui.IsKeyDown(int(glfw.KeyRightAlt))
+	return imgui.IsKeyDown(int(ebiten.KeyAltLeft)) || imgui.IsKeyDown(int(ebiten.KeyAltRight))
 }
 
 func IsShiftDown() bool {
-	return imgui.IsKeyDown(int(glfw.KeyLeftShift)) || imgui.IsKeyDown(int(glfw.KeyRightShift))
+	return imgui.IsKeyDown(int(ebiten.KeyShiftLeft)) || imgui.IsKeyDown(int(ebiten.KeyShiftRight))
 }
 
 func IsCtrlDown() bool {
-	return imgui.IsKeyDown(int(glfw.KeyLeftControl)) || imgui.IsKeyDown(int(glfw.KeyRightControl))
+	return imgui.IsKeyDown(int(ebiten.KeyControlLeft)) || imgui.IsKeyDown(int(ebiten.KeyControlRight))
 }
 
 func IsModDown() bool {

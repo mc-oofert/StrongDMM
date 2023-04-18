@@ -4,7 +4,7 @@ import (
 	"sdmm/internal/app/ui/shortcut"
 	"sdmm/internal/platform"
 
-	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 func (m *Menu) addShortcuts() {
@@ -12,7 +12,7 @@ func (m *Menu) addShortcuts() {
 		Name:        "menu#DoNewWorkspace",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyN,
+		SecondKey:   ebiten.KeyN,
 		Action:      m.app.DoNewWorkspace,
 	})
 
@@ -20,7 +20,7 @@ func (m *Menu) addShortcuts() {
 		Name:        "menu#DoOpen",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyO,
+		SecondKey:   ebiten.KeyO,
 		Action:      m.app.DoOpen,
 	})
 
@@ -28,7 +28,7 @@ func (m *Menu) addShortcuts() {
 		Name:        "menu#DoSave",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyS,
+		SecondKey:   ebiten.KeyS,
 		Action:      m.app.DoSave,
 		IsEnabled:   m.app.HasActiveMap,
 	})
@@ -36,9 +36,9 @@ func (m *Menu) addShortcuts() {
 		Name:         "menu#DoSaveAll",
 		FirstKey:     platform.KeyModLeft(),
 		FirstKeyAlt:  platform.KeyModRight(),
-		SecondKey:    glfw.KeyLeftShift,
-		SecondKeyAlt: glfw.KeyRightShift,
-		ThirdKey:     glfw.KeyS,
+		SecondKey:    ebiten.KeyShiftLeft,
+		SecondKeyAlt: ebiten.KeyShiftRight,
+		ThirdKey:     ebiten.KeyS,
 		Action:       m.app.DoSaveAll,
 		IsEnabled:    m.app.HasActiveMap,
 	})
@@ -47,23 +47,23 @@ func (m *Menu) addShortcuts() {
 		Name:        "menu#DoClose",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyW,
+		SecondKey:   ebiten.KeyW,
 		Action:      m.app.DoClose,
 	})
 	m.shortcuts.Add(shortcut.Shortcut{
 		Name:         "menu#DoCloseAll",
 		FirstKey:     platform.KeyModLeft(),
 		FirstKeyAlt:  platform.KeyModRight(),
-		SecondKey:    glfw.KeyLeftShift,
-		SecondKeyAlt: glfw.KeyRightShift,
-		ThirdKey:     glfw.KeyW,
+		SecondKey:    ebiten.KeyShiftLeft,
+		SecondKeyAlt: ebiten.KeyShiftRight,
+		ThirdKey:     ebiten.KeyW,
 		Action:       m.app.DoCloseAll,
 	})
 	m.shortcuts.Add(shortcut.Shortcut{
 		Name:        "menu#DoExit",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyQ,
+		SecondKey:   ebiten.KeyQ,
 		Action:      m.app.DoExit,
 	})
 
@@ -71,7 +71,7 @@ func (m *Menu) addShortcuts() {
 		Name:        "menu#DoUndo",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyZ,
+		SecondKey:   ebiten.KeyZ,
 		Action:      m.app.DoUndo,
 		IsEnabled:   m.app.CommandStorage().HasUndo,
 	})
@@ -80,9 +80,9 @@ func (m *Menu) addShortcuts() {
 		Name:         "menu#DoRedo",
 		FirstKey:     platform.KeyModLeft(),
 		FirstKeyAlt:  platform.KeyModRight(),
-		SecondKey:    glfw.KeyLeftShift,
-		SecondKeyAlt: glfw.KeyRightShift,
-		ThirdKey:     glfw.KeyZ,
+		SecondKey:    ebiten.KeyShiftLeft,
+		SecondKeyAlt: ebiten.KeyShiftRight,
+		ThirdKey:     ebiten.KeyZ,
 		Action:       m.app.DoRedo,
 		IsEnabled:    m.app.CommandStorage().HasRedo,
 	})
@@ -90,7 +90,7 @@ func (m *Menu) addShortcuts() {
 		Name:        "menu#DoRedo",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyY,
+		SecondKey:   ebiten.KeyY,
 		Action:      m.app.DoRedo,
 		IsEnabled:   m.app.CommandStorage().HasRedo,
 	})
@@ -99,14 +99,14 @@ func (m *Menu) addShortcuts() {
 		Name:        "menu#DoCopy",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyC,
+		SecondKey:   ebiten.KeyC,
 		Action:      m.app.DoCopy,
 	})
 	m.shortcuts.Add(shortcut.Shortcut{
 		Name:        "menu#DoPaste",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyV,
+		SecondKey:   ebiten.KeyV,
 		Action:      m.app.DoPaste,
 		IsEnabled:   m.app.Clipboard().HasData,
 	})
@@ -114,19 +114,19 @@ func (m *Menu) addShortcuts() {
 		Name:        "menu#DoCut",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyX,
+		SecondKey:   ebiten.KeyX,
 		Action:      m.app.DoCut,
 	})
 	m.shortcuts.Add(shortcut.Shortcut{
 		Name:     "menu#DoDelete",
-		FirstKey: glfw.KeyDelete,
+		FirstKey: ebiten.KeyDelete,
 		Action:   m.app.DoDelete,
 	})
 	m.shortcuts.Add(shortcut.Shortcut{
 		Name:        "menu#DoSearch",
 		FirstKey:    platform.KeyModLeft(),
 		FirstKeyAlt: platform.KeyModRight(),
-		SecondKey:   glfw.KeyF,
+		SecondKey:   ebiten.KeyF,
 		Action:      m.app.DoSearch,
 		IsEnabled:   m.app.HasActiveMap,
 	})
@@ -135,14 +135,14 @@ func (m *Menu) addShortcuts() {
 		Name:         "menu#DoMultiZRendering",
 		FirstKey:     platform.KeyModLeft(),
 		FirstKeyAlt:  platform.KeyModRight(),
-		SecondKey:    glfw.Key0,
-		SecondKeyAlt: glfw.KeyKP0,
+		SecondKey:    ebiten.Key0,
+		SecondKeyAlt: ebiten.KeyKP0,
 		Action:       m.app.DoMultiZRendering,
 	})
 
 	m.shortcuts.Add(shortcut.Shortcut{
 		Name:     "menu#DoResetLayout",
-		FirstKey: glfw.KeyF5,
+		FirstKey: ebiten.KeyF5,
 		Action:   m.app.DoResetLayout,
 	})
 

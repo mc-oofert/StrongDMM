@@ -1,8 +1,10 @@
 package dmicon
 
 import (
-	"sdmm/internal/platform"
+	"sdmm/internal/platform/renderer/txcache"
 	"sdmm/internal/rsc"
+
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 var (
@@ -20,8 +22,7 @@ func initEditorSprites() {
 		TextureHeight: atlas.Height,
 		Cols:          1,
 		Rows:          1,
-		Image:         img,
-		Texture:       platform.CreateTexture(img),
+		TextureID:     txcache.CreateTexture(ebiten.NewImageFromImage(img)),
 	}
 
 	spritePlaceholder = newDmiSprite(dmi, 0)

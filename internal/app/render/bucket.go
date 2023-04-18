@@ -56,12 +56,12 @@ func (r *Render) batchLevel(level int, viewBounds util.Bounds, withUnitHighlight
 					continue
 				}
 
-				brush.RectTexturedV(
-					u.ViewBounds().X1, u.ViewBounds().Y1, u.ViewBounds().X2, u.ViewBounds().Y2,
-					u.R(), u.G(), u.B(), u.A(),
-					u.Sprite().Texture(),
-					u.Sprite().U1, u.Sprite().V1, u.Sprite().U2, u.Sprite().V2,
-				)
+				//brush.RectTexturedV(
+				//	u.ViewBounds().X1, u.ViewBounds().Y1, u.ViewBounds().X2, u.ViewBounds().Y2,
+				//	u.R(), u.G(), u.B(), u.A(),
+				//	u.Sprite().TextureID(),
+				//	u.Sprite().U1, u.Sprite().V1, u.Sprite().U2, u.Sprite().V2,
+				//)
 
 				if withUnitHighlight {
 					r.batchUnitHighlight(u)
@@ -76,12 +76,12 @@ func (r *Render) batchUnitHighlight(u unit.Unit) {
 		return
 	}
 	if highlight := r.overlay.Units()[u.Instance().Id()]; highlight != nil {
-		r, g, b, a := highlight.Color().RGBA()
-		brush.RectTexturedV(
-			u.ViewBounds().X1, u.ViewBounds().Y1, u.ViewBounds().X2, u.ViewBounds().Y2,
-			r, g, b, a,
-			u.Sprite().Texture(),
-			u.Sprite().U1, u.Sprite().V1, u.Sprite().U2, u.Sprite().V2,
-		)
+		//r, g, b, a := highlight.Color().RGBA()
+		//brush.RectTexturedV(
+		//	u.ViewBounds().X1, u.ViewBounds().Y1, u.ViewBounds().X2, u.ViewBounds().Y2,
+		//	r, g, b, a,
+		//	u.Sprite().TextureID(),
+		//	u.Sprite().U1, u.Sprite().V1, u.Sprite().U2, u.Sprite().V2,
+		//)
 	}
 }

@@ -6,13 +6,14 @@ import (
 	"image/draw"
 	_ "image/png"
 	"os"
+	"sdmm/internal/platform/renderer/txcache"
 
 	"sdmm/internal/app/window"
 	"sdmm/internal/dmapi/dm"
-	"sdmm/internal/platform"
 	"sdmm/internal/third_party/sdmmparser"
 
-	"github.com/go-gl/gl/v3.3-core/gl"
+	"github.com/SpaiR/imgui-go"
+	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/rs/zerolog/log"
 )
 
@@ -22,14 +23,13 @@ type Dmi struct {
 	TextureWidth  int
 	TextureHeight int
 	Cols, Rows    int
-	Image         image.Image
-	Texture       uint32
+	TextureID     imgui.TextureID
 	States        map[string]*State
 }
 
 func (d *Dmi) free() {
 	window.RunLater(func() {
-		gl.DeleteTextures(1, &d.Texture)
+		txcache.RemoveTexture(d.TextureID)
 	})
 }
 
@@ -68,8 +68,7 @@ func New(path string) (*Dmi, error) {
 		TextureHeight: height,
 		Cols:          width / iconMetadata.Width,
 		Rows:          height / iconMetadata.Height,
-		Image:         rgba,
-		Texture:       platform.CreateTexture(rgba),
+		TextureID:     txcache.CreateTexture(ebiten.NewImageFromImage(rgba)),
 		States:        make(map[string]*State),
 	}
 
@@ -175,12 +174,8 @@ func (s *Sprite) Dmi() *Dmi {
 	return s.dmi
 }
 
-func (s Sprite) Image() image.Image {
-	return s.dmi.Image
-}
-
-func (s Sprite) Texture() uint32 {
-	return s.dmi.Texture
+func (s Sprite) TextureID() imgui.TextureID {
+	return s.dmi.TextureID
 }
 
 func (s Sprite) TextureWidth() int {

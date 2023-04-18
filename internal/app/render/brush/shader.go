@@ -25,7 +25,7 @@ func fragmentShader() string {
 	return `
 #version 330 core
 
-uniform sampler2D Texture;
+uniform sampler2D TextureID;
 uniform bool HasTexture;
 
 in vec2 frag_texture_uv;
@@ -35,7 +35,7 @@ out vec4 outputColor;
 
 void main() {
 	if (HasTexture) {
-		outputColor = frag_color * texture(Texture, frag_texture_uv);
+		outputColor = frag_color * texture(TextureID, frag_texture_uv);
 	} else {
 		outputColor = frag_color;
 	}

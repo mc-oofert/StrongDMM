@@ -3,25 +3,25 @@ package cpsearch
 import (
 	"sdmm/internal/app/ui/shortcut"
 
-	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 func (s *Search) addShortcuts() {
 	s.shortcuts.Add(shortcut.Shortcut{
 		Name:        "cpsearch#jumpToUp",
-		FirstKey:    glfw.KeyLeftShift,
-		FirstKeyAlt: glfw.KeyRightShift,
-		SecondKey:   glfw.KeyF3,
+		FirstKey:    ebiten.KeyShiftLeft,
+		FirstKeyAlt: ebiten.KeyShiftRight,
+		SecondKey:   ebiten.KeyF3,
 		Action:      s.jumpToUp,
 	})
 	s.shortcuts.Add(shortcut.Shortcut{
 		Name:     "cpsearch#jumpToDown",
-		FirstKey: glfw.KeyF3,
+		FirstKey: ebiten.KeyF3,
 		Action:   s.jumpToDown,
 	})
 	s.shortcuts.Add(shortcut.Shortcut{
 		Name:     "cpseaarch#doToggleFilter",
-		FirstKey: glfw.KeyF,
+		FirstKey: ebiten.KeyF,
 		Action:   s.doToggleFilter,
 	})
 }

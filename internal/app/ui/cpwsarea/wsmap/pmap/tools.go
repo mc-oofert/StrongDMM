@@ -5,7 +5,7 @@ import (
 	"sdmm/internal/app/window"
 
 	"github.com/SpaiR/imgui-go"
-	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/rs/zerolog/log"
 )
 
@@ -27,9 +27,9 @@ func processTempToolsMode() {
 	}
 
 	var inMode bool
-	inMode = inMode || processTempToolMode(int(glfw.KeyS), -1, tools.TNPick)
-	inMode = inMode || processTempToolMode(int(glfw.KeyD), -1, tools.TNDelete)
-	inMode = inMode || processTempToolMode(int(glfw.KeyR), -1, tools.TNReplace)
+	inMode = inMode || processTempToolMode(int(ebiten.KeyS), -1, tools.TNPick)
+	inMode = inMode || processTempToolMode(int(ebiten.KeyD), -1, tools.TNDelete)
+	inMode = inMode || processTempToolMode(int(ebiten.KeyR), -1, tools.TNReplace)
 
 	if tmpToolIsInTemporalMode && !inMode {
 		log.Print("select before-tmp tool:", tmpToolLastSelectedName)

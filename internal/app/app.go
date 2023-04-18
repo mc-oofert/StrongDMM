@@ -10,7 +10,6 @@ import (
 
 	"sdmm/internal/app/command"
 	"sdmm/internal/app/config"
-	"sdmm/internal/app/render/brush"
 	"sdmm/internal/app/ui/dialog"
 	"sdmm/internal/app/ui/layout"
 	"sdmm/internal/app/ui/menu"
@@ -164,7 +163,7 @@ func (a *app) LayoutIniPath() string {
 }
 
 func (a *app) dispose() {
-	brush.Dispose()
+	//brush.Dispose()
 	a.configSave()
 	a.masterWindow.Dispose()
 }
@@ -189,7 +188,7 @@ func getOrCreateInternalDir() string {
 
 func (a *app) checkShouldClose() {
 	if a.tmpShouldClose {
-		a.masterWindow.Handle().SetShouldClose(true)
+		//a.masterWindow.Handle().SetShouldClose(true)
 	}
 }
 

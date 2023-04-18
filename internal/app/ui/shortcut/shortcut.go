@@ -6,19 +6,19 @@ import (
 	"strings"
 
 	"github.com/SpaiR/imgui-go"
-	"github.com/go-gl/glfw/v3.3/glfw"
+	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/rs/zerolog/log"
 )
 
 type Shortcut struct {
 	id           uint64
 	Name         string
-	FirstKey     glfw.Key
-	FirstKeyAlt  glfw.Key
-	SecondKey    glfw.Key
-	SecondKeyAlt glfw.Key
-	ThirdKey     glfw.Key
-	ThirdKeyAlt  glfw.Key
+	FirstKey     ebiten.Key
+	FirstKeyAlt  ebiten.Key
+	SecondKey    ebiten.Key
+	SecondKeyAlt ebiten.Key
+	ThirdKey     ebiten.Key
+	ThirdKeyAlt  ebiten.Key
 	Action       func()
 	IsEnabled    func() bool
 	IsVisible    bool

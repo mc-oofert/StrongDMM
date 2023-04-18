@@ -244,7 +244,7 @@ func (e *Environment) showVisibilityCheckbox(node *treeNode) {
 
 func (e *Environment) showIcon(node *treeNode) {
 	s := node.sprite
-	w.Image(imgui.TextureID(s.Texture()), e.iconSize(), e.iconSize()).
+	w.Image(s.TextureID(), e.iconSize(), e.iconSize()).
 		TintColor(node.color).
 		Uv(imgui.Vec2{X: s.U1, Y: s.V1}, imgui.Vec2{X: s.U2, Y: s.V2}).
 		Build()

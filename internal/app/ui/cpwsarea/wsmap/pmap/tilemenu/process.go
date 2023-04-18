@@ -83,7 +83,7 @@ func (t *TileMenu) showInstance(i *dmminstance.Instance, idx int) {
 		w.Custom(func() {
 			// Draw the instance icon.
 			imgui.WindowDrawList().AddImageV(
-				imgui.TextureID(s.Texture()),
+				s.TextureID(),
 				imgui.ItemRectMin(),
 				imgui.ItemRectMin().Plus(imgui.Vec2{X: iconSize, Y: iconSize}),
 				imgui.Vec2{X: s.U1, Y: s.V1}, imgui.Vec2{X: s.U2, Y: s.V2},
